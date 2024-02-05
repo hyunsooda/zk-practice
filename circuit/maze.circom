@@ -6,20 +6,17 @@ include "lib.circom";
 // description: verify the given maze answer
 // input: col:column size, nVars:# of varaibles
 // output: maze index
-template solve(col, nVars) {
-    var maze[20] = [
-        1, 0, 0, 0, 2,
-        1, 0, 1, 1, 1,
-        1, 1, 1, 0, 0,
-        0, 0, 0, 0, 0
-    ];
+template solve(mazeSize, col, nVars) {
     var HOLD  = -1;
     var LEFT  = 0;
     var RIGHT = 1;
     var DOWN  = 2;
     var UP    = 3;
 
+    signal input maze[mazeSize];
+    signal input goal;
     signal input answer[nVars];
+
     signal temp[nVars];
     signal leftright[nVars];
     signal down[nVars];
@@ -59,7 +56,10 @@ template solve(col, nVars) {
 
         sum[i+1] <== sum[i] + leftright[i] + down[i] + up[i];
     }
-    signal output out <== sum[nVars];
+    component eq = IsEqual();
+    goal       ==> eq.in[0];
+    sum[nVars] ==> eq.in[1];
+    signal output out <== eq.out;
 }
 
-component main = solve(5, 15);
+component main = solve(20, 5, 15);

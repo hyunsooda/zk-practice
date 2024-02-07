@@ -62,4 +62,4 @@ template solve(mazeSize, col, nVars) {
     signal output out <== eq.out;
 }
 
-component main {public [maze, answer]} = solve(20, 5, 15);
+component main {public [maze, goal]} = solve(20, 5, 15);

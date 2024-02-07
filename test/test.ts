@@ -45,7 +45,7 @@ const getCircuitInputs = async function() {
     "image": targetImage,
     "modelHashSalt": salt,
     "expectedModelHash": modelHash,
-    "expectedOut": testOut,
+    "expectedClass": testOut,
   };
 }
 

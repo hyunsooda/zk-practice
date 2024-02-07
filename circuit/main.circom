@@ -8,7 +8,7 @@ template verify(weightRow, weightCol, outputSize) {
     signal input image[weightCol];
     signal input modelHashSalt;
     signal input expectedModelHash;
-    signal input expectedOut;
+    signal input expectedClass;
 
     component verifyModel = VeriyModel(200, 784, 10); // input size = 784, hidden size = 200, output size = 10
     fc1In             ==> verifyModel.fc1In;
@@ -16,9 +16,9 @@ template verify(weightRow, weightCol, outputSize) {
     image             ==> verifyModel.image;
     modelHashSalt     ==> verifyModel.modelHashSalt;
     expectedModelHash ==> verifyModel.expectedModelHash;
-    expectedOut       === verifyModel.out;
+    expectedClass     === verifyModel.out;
 
     signal output out <== verifyModel.out;
 }
 
-component main = verify(200, 784, 10); // input size = 784, hidden size = 200, output size = 10
+component main {public [expectedModelHash, expectedClass]} = verify(200, 784, 10); // input size = 784, hidden size = 200, output size = 10

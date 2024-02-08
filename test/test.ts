@@ -88,17 +88,7 @@ describe("Correctness of model inference", function () {
       const circuit = await wasm_tester(path.join(__dirname,"../circuit", "maze.circom"));
       await circuit.loadConstraints();
 
-      // 0: pace
-      // 1: wall
-      // 2: goal
-      const maze = [
-        1, 0, 0, 0, 2,
-        1, 0, 1, 1, 1,
-        1, 1, 1, 0, 0,
-        0, 0, 0, 0, 0
-      ];
       const witness = await circuit.calculateWitness({
-        "maze": maze,
         "goal": 4,
         "answer": [2,2,1,1,3,1,1,3, -1,-1,-1,-1,-1,-1,-1],
         // identical answer
